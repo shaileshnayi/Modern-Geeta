@@ -116,8 +116,9 @@
             font-size: 1rem; font-family: 'Poppins', sans-serif; outline: none; cursor: pointer;
         }
 
+        /* Added 120px bottom margin to give breathing room at the bottom of the page (desktop) */
         .shloka-container {
-            max-width: 900px; margin: 30px auto; padding: 40px;
+            max-width: 900px; margin: 30px auto 120px auto; padding: 40px;
             background: var(--glass-bg); backdrop-filter: blur(20px); border-radius: 12px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8), inset 0 0 0 1px var(--glass-border);
             text-align: center; position: relative; border-top: 2px solid rgba(212, 175, 55, 0.4);
@@ -138,7 +139,7 @@
             font-size: 0.95rem; color: var(--text-muted);
         }
 
-        /* --- UPDATED MOBILE FRIENDLY JOURNAL --- */
+        /* --- JOURNAL --- */
         .journal-section { margin-top: 30px; text-align: left; width: 100%; }
         
         .journal-toggle-btn {
@@ -170,10 +171,15 @@
         .journal-content textarea:focus { border-color: var(--divine-gold); box-shadow: 0 0 10px var(--gold-glow); }
         .journal-save-msg { color: var(--sattva); font-size: 0.8rem; margin-top: 5px; opacity: 0; transition: 0.3s; }
 
-        /* --- UPDATED NAVIGATION CONTROLS --- */
-        .controls { display: flex; justify-content: space-between; gap: 10px; margin-top: 30px; width: 100%; }
+        /* --- NAVIGATION CONTROLS --- */
+        .controls { 
+            display: flex; justify-content: space-between; gap: 10px; 
+            margin-top: 30px; margin-bottom: 20px;
+            width: 100%; 
+        }
+        
         .btn {
-            flex: 1; /* Makes buttons flex equally */
+            flex: 1; 
             padding: 12px 10px; background: rgba(10, 10, 10, 0.6); color: var(--divine-gold);
             border: 1px solid var(--divine-gold); border-radius: 4px; cursor: pointer;
             font-size: 0.85rem; font-family: 'Cinzel', serif; font-weight: 600; text-transform: uppercase;
@@ -202,7 +208,7 @@
         .astra-card p { font-size: 0.85rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
         /* --- PSYCHOLOGY VIEW STYLES --- */
-        .psych-container { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; overflow-y: auto; }
+        .psych-container { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 40px 20px 120px 20px; overflow-y: auto; }
         .psych-tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; justify-content: center; }
         .psych-tabs button { padding: 10px 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-muted); border-radius: 4px; cursor: pointer; font-family: 'Cinzel', serif; font-weight: 600; transition: 0.3s; }
         .psych-tabs button.active { background: rgba(212, 175, 55, 0.15); color: var(--divine-gold); border-color: var(--divine-gold); }
@@ -259,7 +265,9 @@
             .mobile-menu-btn { order: 1; }
             .verse-selector { order: 2; }
 
-            .shloka-container { margin: 15px; padding: 25px; }
+            /* Added massive 150px bottom margin so there is plenty of space to scroll past the card */
+            .shloka-container { margin: 15px 15px 150px 15px; padding: 25px 25px 35px 25px; }
+            
             .sanskrit-text { font-size: 1.5rem; }
             .hindi-translation { font-size: 1.1rem; }
             
@@ -333,7 +341,6 @@
 
                 <div class="divider"></div>
 
-                <!-- NEW: Collapsible Journal Section -->
                 <div class="journal-section">
                     <button class="journal-toggle-btn" onclick="toggleJournal()">📝 Open Sarthi's Journal</button>
                     
@@ -473,7 +480,7 @@
             document.getElementById('shloka-hindi').innerHTML = "";
             document.getElementById('verse-dropdown').value = currentVerseNum;
             document.getElementById('deep-dive-box').style.display = 'none';
-            updateButtons(); loadJournal(); // Refreshes the journal UI
+            updateButtons(); loadJournal();
 
             try {
                 const response = await fetch(`https://vedicscriptures.github.io/slok/${currentChapterId}/${currentVerseNum}`);
@@ -535,13 +542,10 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
-        /* --- COLLAPSIBLE JOURNAL LOGIC --- */
         function toggleJournal() {
             const content = document.getElementById('journal-content');
             const btn = document.querySelector('.journal-toggle-btn');
-            
             content.classList.toggle('open');
-            
             if (content.classList.contains('open')) {
                 btn.innerHTML = '📝 Close Journal';
             } else {
@@ -553,20 +557,14 @@
         function loadJournal() {
             const entry = localStorage.getItem(`gita-journal-${currentChapterId}-${currentVerseNum}`);
             document.getElementById('journal-input').value = entry || "";
-            
             const content = document.getElementById('journal-content');
             const btn = document.querySelector('.journal-toggle-btn');
-            
-            // Start closed on new verse load
             content.classList.remove('open');
-            
             if (entry) {
-                // Highlight if they have saved notes
                 btn.innerHTML = '📝 View Saved Journal';
                 btn.style.border = '1px solid var(--divine-gold)';
                 btn.style.background = 'rgba(212, 175, 55, 0.15)';
             } else {
-                // Default subtle styling
                 btn.innerHTML = '📝 Open Sarthi\'s Journal';
                 btn.style.border = '1px dashed var(--glass-border)';
                 btn.style.background = 'rgba(10, 10, 10, 0.4)';
@@ -578,8 +576,6 @@
             localStorage.setItem(`gita-journal-${currentChapterId}-${currentVerseNum}`, text);
             const msg = document.getElementById('journal-save-msg');
             msg.style.opacity = 1; setTimeout(() => msg.style.opacity = 0, 2000);
-            
-            // Update button visual state quietly
             const btn = document.querySelector('.journal-toggle-btn');
             btn.style.border = '1px solid var(--divine-gold)';
             btn.style.background = 'rgba(212, 175, 55, 0.15)';
