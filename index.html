@@ -61,7 +61,6 @@
             letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 15px var(--gold-glow);
         }
 
-        /* Mobile Main Nav Toggle */
         .mobile-nav-toggle { display: none; }
 
         .main-nav { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -80,7 +79,7 @@
         .app-view.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- GITA VIEW STYLES (Desktop) --- */
+        /* --- GITA VIEW STYLES --- */
         .sidebar {
             width: 320px; background: var(--glass-bg); backdrop-filter: blur(16px);
             border-right: 1px solid var(--glass-border); display: flex;
@@ -139,26 +138,51 @@
             font-size: 0.95rem; color: var(--text-muted);
         }
 
-        .journal-section { margin-top: 40px; text-align: left; }
-        .journal-section h3 { color: var(--divine-gold); font-family: 'Cinzel', serif; margin-bottom: 10px; font-size: 1.2rem; }
-        .journal-section textarea {
+        /* --- UPDATED MOBILE FRIENDLY JOURNAL --- */
+        .journal-section { margin-top: 30px; text-align: left; width: 100%; }
+        
+        .journal-toggle-btn {
+            width: 100%;
+            background: rgba(10, 10, 10, 0.4);
+            border: 1px dashed var(--glass-border);
+            color: var(--divine-gold);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .journal-toggle-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--divine-gold);
+        }
+
+        .journal-content { display: none; margin-top: 15px; }
+        .journal-content.open { display: block; animation: fadeIn 0.3s ease; }
+
+        .journal-content textarea {
             width: 100%; height: 100px; background: rgba(0,0,0,0.5); color: var(--text-light);
             border: 1px solid var(--glass-border); border-radius: 8px; padding: 15px;
             font-family: 'Poppins', sans-serif; resize: vertical; outline: none; transition: 0.3s;
         }
-        .journal-section textarea:focus { border-color: var(--divine-gold); box-shadow: 0 0 10px var(--gold-glow); }
+        .journal-content textarea:focus { border-color: var(--divine-gold); box-shadow: 0 0 10px var(--gold-glow); }
         .journal-save-msg { color: var(--sattva); font-size: 0.8rem; margin-top: 5px; opacity: 0; transition: 0.3s; }
 
-        .controls { display: flex; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
+        /* --- UPDATED NAVIGATION CONTROLS --- */
+        .controls { display: flex; justify-content: space-between; gap: 10px; margin-top: 30px; width: 100%; }
         .btn {
-            padding: 10px 22px; background: rgba(10, 10, 10, 0.6); color: var(--divine-gold);
+            flex: 1; /* Makes buttons flex equally */
+            padding: 12px 10px; background: rgba(10, 10, 10, 0.6); color: var(--divine-gold);
             border: 1px solid var(--divine-gold); border-radius: 4px; cursor: pointer;
-            font-size: 0.9rem; font-family: 'Cinzel', serif; font-weight: 600; text-transform: uppercase;
-            transition: all 0.3s ease; box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            font-size: 0.85rem; font-family: 'Cinzel', serif; font-weight: 600; text-transform: uppercase;
+            transition: all 0.3s ease; box-shadow: 0 0 10px rgba(0,0,0,0.3); text-align: center;
         }
         .btn:hover:not(:disabled) { background: var(--divine-gold); color: var(--bg-void); box-shadow: 0 0 15px var(--gold-glow); }
         .btn:disabled { opacity: 0.3; cursor: not-allowed; border-color: var(--text-muted); color: var(--text-muted); }
-        .btn-icon { padding: 8px 12px; font-size: 1.2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        
+        .btn-icon { flex: none; padding: 8px 12px; font-size: 1.2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
         /* --- ASTRAS (BOOKMARKS) SIDEBAR --- */
         .astras-panel {
@@ -199,19 +223,16 @@
             .app-header { padding: 15px; flex-direction: column; align-items: stretch; gap: 0; }
             .header-title-container { width: 100%; }
             
-            /* The new mobile menu toggle button for Header */
             .mobile-nav-toggle { 
                 display: block; background: transparent; border: 1px solid var(--divine-gold); 
                 color: var(--divine-gold); padding: 8px 15px; border-radius: 4px; 
                 font-family: 'Cinzel', serif; font-weight: 600; cursor: pointer;
             }
 
-            /* Make the top 3 buttons hide by default and form a vertical menu when toggled */
             .main-nav { display: none; flex-direction: column; width: 100%; margin-top: 15px; gap: 10px; }
             .main-nav.open { display: flex; }
             .main-nav button { width: 100%; padding: 12px; }
             
-            /* Sidebar becomes a sliding off-canvas menu */
             .sidebar { 
                 position: fixed; top: 0; left: -100%; width: 300px; height: 100vh; 
                 transition: left 0.4s ease; box-shadow: 10px 0 30px rgba(0,0,0,0.9);
@@ -233,11 +254,7 @@
                 font-family: 'Cinzel', serif; font-weight: 600; cursor: pointer; font-size: 0.9rem;
             }
 
-            /* FIXED: Un-freeze the inner navigation bar on mobile so it scrolls naturally */
-            .top-nav { 
-                flex-wrap: wrap; justify-content: space-between; gap: 15px; padding: 15px; 
-                position: relative; /* This allows it to scroll up out of sight */
-            }
+            .top-nav { flex-wrap: wrap; justify-content: space-between; gap: 15px; padding: 15px; position: relative; }
             #current-chapter-title { width: 100%; text-align: center; order: 3; font-size: 1.2rem !important; margin-top: 5px; }
             .mobile-menu-btn { order: 1; }
             .verse-selector { order: 2; }
@@ -262,7 +279,6 @@
             </div>
             <button class="mobile-nav-toggle" onclick="toggleMainNavbar()">☰ Menu</button>
         </div>
-        <!-- Main Nav now collapses on mobile -->
         <div class="main-nav" id="main-navigation">
             <button id="nav-gita" class="active" onclick="switchAppView('gita'); closeMainNavbar();">Divine Song</button>
             <button id="nav-psych" onclick="switchAppView('psych'); closeMainNavbar();">Mind Arsenal</button>
@@ -282,13 +298,11 @@
     <!-- APP VIEW 1: VIRTUAL GITA -->
     <div id="view-gita" class="app-view active">
         
-        <!-- Sliding Chapter List (Sidebar) -->
         <div class="sidebar" id="chapter-list">
             <div class="sidebar-header-mobile">
                 <h2>अध्याय (Chapters)</h2>
                 <button class="close-sidebar-btn" onclick="toggleSidebar()">×</button>
             </div>
-            <!-- Chapters injected here via JS -->
         </div>
 
         <div class="main-content">
@@ -319,16 +333,22 @@
 
                 <div class="divider"></div>
 
+                <!-- NEW: Collapsible Journal Section -->
                 <div class="journal-section">
-                    <h3>The Sarthi's Journal</h3>
-                    <textarea id="journal-input" placeholder="Reflect on this verse. How does it apply to your current battlefield?"></textarea>
-                    <button class="btn" style="margin-top: 10px; font-size: 0.8rem; padding: 8px 15px;" onclick="saveJournal()">Save Entry</button>
-                    <span id="journal-save-msg" class="journal-save-msg">Entry Saved!</span>
+                    <button class="journal-toggle-btn" onclick="toggleJournal()">📝 Open Sarthi's Journal</button>
+                    
+                    <div id="journal-content" class="journal-content">
+                        <textarea id="journal-input" placeholder="Reflect on this verse. How does it apply to your current battlefield?"></textarea>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <button class="btn" style="flex: 0; padding: 8px 20px; font-size: 0.8rem;" onclick="saveJournal()">Save Entry</button>
+                            <span id="journal-save-msg" class="journal-save-msg">Entry Saved!</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="controls">
                     <button class="btn" id="btn-prev" onclick="prevVerse()">&#8592; पूर्व</button>
-                    <button class="btn" onclick="loadRandomVerse()">दिव्य दृष्टि (Random)</button>
+                    <button class="btn" onclick="loadRandomVerse()">दिव्य दृष्टि</button>
                     <button class="btn" id="btn-next" onclick="nextVerse()">आगे &#8594;</button>
                 </div>
             </div>
@@ -389,7 +409,6 @@
     </div>
 
     <script>
-        // --- DATA & STATE ---
         const chaptersData = [
             { id: 1, name: "अध्याय 1: अर्जुनविषादयोग", verses: 47 }, { id: 2, name: "अध्याय 2: सांख्ययोग", verses: 72 },
             { id: 3, name: "अध्याय 3: कर्मयोग", verses: 43 }, { id: 4, name: "अध्याय 4: ज्ञानकर्मसंन्यासयोग", verses: 42 },
@@ -407,7 +426,6 @@
         let astras = JSON.parse(localStorage.getItem('gita-astras')) || [];
         let currentAudio = null;
 
-        // --- APP NAVIGATION ---
         function switchAppView(view) {
             document.querySelectorAll('.app-view').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('#main-navigation button').forEach(el => el.classList.remove('active'));
@@ -415,23 +433,10 @@
             document.getElementById(`nav-${view}`).classList.add('active');
         }
 
-        // --- MOBILE HEADER MENU TOGGLE ---
-        function toggleMainNavbar() {
-            document.getElementById('main-navigation').classList.toggle('open');
-        }
+        function toggleMainNavbar() { document.getElementById('main-navigation').classList.toggle('open'); }
+        function closeMainNavbar() { if(window.innerWidth <= 950) { document.getElementById('main-navigation').classList.remove('open'); } }
+        function toggleSidebar() { document.getElementById('chapter-list').classList.toggle('open'); }
 
-        function closeMainNavbar() {
-            if(window.innerWidth <= 950) {
-                document.getElementById('main-navigation').classList.remove('open');
-            }
-        }
-
-        // --- MOBILE SIDEBAR TOGGLE ---
-        function toggleSidebar() {
-            document.getElementById('chapter-list').classList.toggle('open');
-        }
-
-        // --- VIRTUAL GITA CORE ---
         function initGita() {
             const list = document.getElementById('chapter-list');
             chaptersData.forEach(chapter => {
@@ -460,10 +465,7 @@
             }
             fetchAndRenderVerse();
 
-            // Auto-close sidebar on mobile after selecting a chapter
-            if(window.innerWidth <= 950) {
-                document.getElementById('chapter-list').classList.remove('open');
-            }
+            if(window.innerWidth <= 950) { document.getElementById('chapter-list').classList.remove('open'); }
         }
 
         async function fetchAndRenderVerse() {
@@ -471,7 +473,7 @@
             document.getElementById('shloka-hindi').innerHTML = "";
             document.getElementById('verse-dropdown').value = currentVerseNum;
             document.getElementById('deep-dive-box').style.display = 'none';
-            updateButtons(); loadJournal();
+            updateButtons(); loadJournal(); // Refreshes the journal UI
 
             try {
                 const response = await fetch(`https://vedicscriptures.github.io/slok/${currentChapterId}/${currentVerseNum}`);
@@ -513,7 +515,6 @@
             fetchAndRenderVerse();
         }
 
-        // --- AUDIO, JOURNAL, ASTRAS ---
         function playAudio() {
             if(currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
             const audioUrl = `https://your-server.com/audio/ch${currentChapterId}_v${currentVerseNum}.mp3`;
@@ -534,9 +535,42 @@
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
 
+        /* --- COLLAPSIBLE JOURNAL LOGIC --- */
+        function toggleJournal() {
+            const content = document.getElementById('journal-content');
+            const btn = document.querySelector('.journal-toggle-btn');
+            
+            content.classList.toggle('open');
+            
+            if (content.classList.contains('open')) {
+                btn.innerHTML = '📝 Close Journal';
+            } else {
+                const entry = localStorage.getItem(`gita-journal-${currentChapterId}-${currentVerseNum}`);
+                btn.innerHTML = entry ? '📝 View Saved Journal' : '📝 Open Sarthi\'s Journal';
+            }
+        }
+
         function loadJournal() {
             const entry = localStorage.getItem(`gita-journal-${currentChapterId}-${currentVerseNum}`);
             document.getElementById('journal-input').value = entry || "";
+            
+            const content = document.getElementById('journal-content');
+            const btn = document.querySelector('.journal-toggle-btn');
+            
+            // Start closed on new verse load
+            content.classList.remove('open');
+            
+            if (entry) {
+                // Highlight if they have saved notes
+                btn.innerHTML = '📝 View Saved Journal';
+                btn.style.border = '1px solid var(--divine-gold)';
+                btn.style.background = 'rgba(212, 175, 55, 0.15)';
+            } else {
+                // Default subtle styling
+                btn.innerHTML = '📝 Open Sarthi\'s Journal';
+                btn.style.border = '1px dashed var(--glass-border)';
+                btn.style.background = 'rgba(10, 10, 10, 0.4)';
+            }
         }
 
         function saveJournal() {
@@ -544,6 +578,11 @@
             localStorage.setItem(`gita-journal-${currentChapterId}-${currentVerseNum}`, text);
             const msg = document.getElementById('journal-save-msg');
             msg.style.opacity = 1; setTimeout(() => msg.style.opacity = 0, 2000);
+            
+            // Update button visual state quietly
+            const btn = document.querySelector('.journal-toggle-btn');
+            btn.style.border = '1px solid var(--divine-gold)';
+            btn.style.background = 'rgba(212, 175, 55, 0.15)';
         }
 
         function toggleAstras() { document.getElementById('astras-panel').classList.toggle('open'); }
@@ -569,7 +608,6 @@
             if(astras.length === 0) list.innerHTML = "<p style='color:var(--text-muted);'>Your armory is empty.</p>";
         }
 
-        // --- PSYCHOLOGY TOOLS ---
         function switchPsychTab(tabId, btn) {
             document.querySelectorAll('.psych-card').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.psych-tabs button').forEach(el => el.classList.remove('active'));
