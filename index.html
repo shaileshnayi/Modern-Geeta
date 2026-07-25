@@ -55,20 +55,15 @@
         }
         
         .app-header h1 {
-            color: var(--divine-gold);
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 0 0 15px var(--gold-glow);
+            color: var(--divine-gold); font-family: 'Cinzel', serif; font-size: 1.5rem;
+            letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 15px var(--gold-glow);
         }
 
         .main-nav { display: flex; gap: 10px; flex-wrap: wrap; }
         .main-nav button {
             background: transparent; border: 1px solid var(--glass-border);
             color: var(--text-muted); padding: 8px 16px; border-radius: 4px;
-            cursor: pointer; font-family: 'Cinzel', serif; font-weight: 600;
-            transition: all 0.4s ease;
+            cursor: pointer; font-family: 'Cinzel', serif; font-weight: 600; transition: all 0.4s ease;
         }
         .main-nav button.active, .main-nav button:hover {
             background: rgba(212, 175, 55, 0.1); color: var(--divine-gold);
@@ -80,12 +75,14 @@
         .app-view.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- GITA VIEW STYLES --- */
+        /* --- GITA VIEW STYLES (Desktop) --- */
         .sidebar {
             width: 320px; background: var(--glass-bg); backdrop-filter: blur(16px);
             border-right: 1px solid var(--glass-border); display: flex;
-            flex-direction: column; overflow-y: auto;
+            flex-direction: column; overflow-y: auto; z-index: 100;
         }
+
+        .sidebar-header-mobile { display: none; } /* Hidden on desktop */
 
         .chapter-btn {
             padding: 15px 20px; background: none; border: none;
@@ -106,6 +103,8 @@
             backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 10;
         }
 
+        .mobile-menu-btn { display: none; } /* Hidden on desktop */
+
         .verse-selector select {
             background: rgba(10, 10, 10, 0.8); color: var(--divine-gold);
             border: 1px solid var(--divine-gold); padding: 8px 15px; border-radius: 4px;
@@ -125,12 +124,7 @@
             font-family: 'Amita', serif; font-size: 2.2rem; color: var(--divine-gold);
             line-height: 1.6; margin-bottom: 25px; font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
-
-        .divider {
-            height: 1px; background: linear-gradient(90deg, transparent, var(--divine-gold), transparent);
-            margin: 30px 0; opacity: 0.4; position: relative;
-        }
-
+        .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--divine-gold), transparent); margin: 30px 0; opacity: 0.4; }
         .hindi-translation { font-family: 'Amita', serif; font-size: 1.3rem; color: var(--text-light); line-height: 1.8; }
         
         .deep-dive-box {
@@ -139,7 +133,6 @@
             font-size: 0.95rem; color: var(--text-muted);
         }
 
-        /* Sarthi Journal */
         .journal-section { margin-top: 40px; text-align: left; }
         .journal-section h3 { color: var(--divine-gold); font-family: 'Cinzel', serif; margin-bottom: 10px; font-size: 1.2rem; }
         .journal-section textarea {
@@ -165,7 +158,7 @@
         .astras-panel {
             position: fixed; top: 0; right: -400px; width: 350px; height: 100vh;
             background: rgba(15, 12, 10, 0.95); backdrop-filter: blur(20px);
-            border-left: 1px solid var(--divine-gold); z-index: 50; transition: 0.4s ease;
+            border-left: 1px solid var(--divine-gold); z-index: 100; transition: 0.4s ease;
             display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.8);
         }
         .astras-panel.open { right: 0; }
@@ -173,10 +166,7 @@
         .astras-header h2 { color: var(--divine-gold); font-family: 'Cinzel', serif; font-size: 1.2rem; }
         .close-astras { background: none; border: none; color: var(--divine-gold); font-size: 1.5rem; cursor: pointer; }
         .astras-list { padding: 20px; overflow-y: auto; flex: 1; }
-        .astra-card {
-            background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border);
-            padding: 15px; border-radius: 8px; margin-bottom: 15px; cursor: pointer; transition: 0.3s;
-        }
+        .astra-card { background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); padding: 15px; border-radius: 8px; margin-bottom: 15px; cursor: pointer; transition: 0.3s; }
         .astra-card:hover { border-color: var(--divine-gold); }
         .astra-card h4 { color: var(--divine-gold); margin-bottom: 5px; font-family: 'Amita', serif; }
         .astra-card p { font-size: 0.85rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
@@ -184,33 +174,64 @@
         /* --- PSYCHOLOGY VIEW STYLES --- */
         .psych-container { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; overflow-y: auto; }
         .psych-tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; justify-content: center; }
-        .psych-tabs button {
-            padding: 10px 20px; background: var(--glass-bg); border: 1px solid var(--glass-border);
-            color: var(--text-muted); border-radius: 4px; cursor: pointer; font-family: 'Cinzel', serif; font-weight: 600; transition: 0.3s;
-        }
+        .psych-tabs button { padding: 10px 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-muted); border-radius: 4px; cursor: pointer; font-family: 'Cinzel', serif; font-weight: 600; transition: 0.3s; }
         .psych-tabs button.active { background: rgba(212, 175, 55, 0.15); color: var(--divine-gold); border-color: var(--divine-gold); }
-        .psych-card {
-            display: none; background: var(--glass-bg); padding: 40px; border-radius: 8px;
-            width: 100%; max-width: 600px; border: 1px solid var(--glass-border); border-top: 2px solid var(--divine-gold);
-        }
+        .psych-card { display: none; background: var(--glass-bg); padding: 40px; border-radius: 8px; width: 100%; max-width: 600px; border: 1px solid var(--glass-border); border-top: 2px solid var(--divine-gold); }
         .psych-card.active { display: block; animation: fadeIn 0.5s ease; }
         .psych-card h2 { color: var(--divine-gold); margin-bottom: 10px; font-family: 'Cinzel', serif; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 10px; color: var(--text-light); }
-        .form-group input[type="text"] {
-            width: 100%; padding: 12px; border-radius: 4px; border: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.5); color: var(--divine-gold); outline: none;
-        }
+        .form-group input[type="text"] { width: 100%; padding: 12px; border-radius: 4px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.5); color: var(--divine-gold); outline: none; }
         .radio-option { display: block; margin-bottom: 10px; cursor: pointer; padding: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 4px; }
         .timer-display { font-size: 4rem; font-family: 'Cinzel', serif; font-weight: 700; text-align: center; margin: 20px 0; color: var(--divine-gold); }
         .result-box { margin-top: 20px; padding: 20px; border-radius: 4px; background: rgba(0,0,0,0.6); display: none; border-left: 4px solid var(--divine-gold); }
 
-        @media (max-width: 900px) {
-            .app-view { flex-direction: column; }
-            .sidebar { width: 100%; height: 25vh; border-right: none; border-bottom: 1px solid var(--glass-border); }
-            .main-content { height: 75vh; }
-            .app-header { padding: 15px; flex-direction: column; gap: 15px; }
+        /* =========================================================
+           MOBILE & TABLET RESPONSIVE OVERHAUL
+           ========================================================= */
+        @media (max-width: 950px) {
+            .app-header { padding: 15px; flex-direction: column; gap: 15px; text-align: center; }
+            
+            /* Sidebar becomes a sliding off-canvas menu */
+            .sidebar { 
+                position: fixed; top: 0; left: -100%; width: 300px; height: 100vh; 
+                transition: left 0.4s ease; box-shadow: 10px 0 30px rgba(0,0,0,0.9);
+                background: rgba(15, 12, 10, 0.98); 
+            }
+            .sidebar.open { left: 0; }
+
+            /* Mobile Sidebar Header with Close Button */
+            .sidebar-header-mobile {
+                display: flex; justify-content: space-between; align-items: center;
+                padding: 20px; border-bottom: 1px solid var(--glass-border);
+            }
+            .sidebar-header-mobile h2 { color: var(--divine-gold); font-family: 'Cinzel', serif; font-size: 1.1rem; }
+            .close-sidebar-btn { background: none; border: none; color: var(--divine-gold); font-size: 1.8rem; cursor: pointer; }
+
+            /* Main content takes full screen */
+            .main-content { width: 100%; }
+
+            /* Show mobile menu button inside Top Nav */
+            .mobile-menu-btn {
+                display: flex; align-items: center; gap: 8px;
+                background: rgba(212, 175, 55, 0.15); color: var(--divine-gold);
+                border: 1px solid var(--divine-gold); padding: 8px 15px; border-radius: 4px;
+                font-family: 'Cinzel', serif; font-weight: 600; cursor: pointer; font-size: 0.9rem;
+            }
+
+            .top-nav { flex-wrap: wrap; justify-content: space-between; gap: 15px; padding: 15px; }
+            
+            /* Order: [Menu Btn] [Verse Selector] -> Title drops to new line */
+            #current-chapter-title { width: 100%; text-align: center; order: 3; font-size: 1.2rem !important; margin-top: 5px; }
+            .mobile-menu-btn { order: 1; }
+            .verse-selector { order: 2; }
+
+            .shloka-container { margin: 15px; padding: 25px; }
+            .sanskrit-text { font-size: 1.5rem; }
+            .hindi-translation { font-size: 1.1rem; }
+            
             .astras-panel { width: 100%; right: -100%; }
+            .action-bar { justify-content: center; margin-bottom: 30px; }
         }
     </style>
 </head>
@@ -235,21 +256,28 @@
             <h2>Saved Weapons (Astras)</h2>
             <button class="close-astras" onclick="toggleAstras()">×</button>
         </div>
-        <div class="astras-list" id="astras-list">
-            <!-- Saved verses appear here -->
-        </div>
+        <div class="astras-list" id="astras-list"></div>
     </div>
 
     <!-- APP VIEW 1: VIRTUAL GITA -->
     <div id="view-gita" class="app-view active">
-        <div class="sidebar" id="chapter-list"></div>
+        
+        <!-- Sliding Chapter List (Sidebar) -->
+        <div class="sidebar" id="chapter-list">
+            <div class="sidebar-header-mobile">
+                <h2>अध्याय (Chapters)</h2>
+                <button class="close-sidebar-btn" onclick="toggleSidebar()">×</button>
+            </div>
+            <!-- Chapters injected here via JS -->
+        </div>
 
         <div class="main-content">
             <div class="top-nav">
-                <h2 id="current-chapter-title" style="font-family: 'Amita', serif; color: var(--divine-gold); font-size: 1.4rem;">लोड हो रहा है...</h2>
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">☰ अध्याय</button>
                 <div class="verse-selector">
                     <select id="verse-dropdown" onchange="changeVerse(this.value)"></select>
                 </div>
+                <h2 id="current-chapter-title" style="font-family: 'Amita', serif; color: var(--divine-gold); font-size: 1.4rem;">लोड हो रहा है...</h2>
             </div>
 
             <div class="shloka-container">
@@ -271,12 +299,11 @@
 
                 <div class="divider"></div>
 
-                <!-- Sarthi Journal -->
                 <div class="journal-section">
-                    <h3>The Sarthi's Journal (Your Notes)</h3>
+                    <h3>The Sarthi's Journal</h3>
                     <textarea id="journal-input" placeholder="Reflect on this verse. How does it apply to your current battlefield?"></textarea>
                     <button class="btn" style="margin-top: 10px; font-size: 0.8rem; padding: 8px 15px;" onclick="saveJournal()">Save Entry</button>
-                    <span id="journal-save-msg" class="journal-save-msg">Entry Saved to Browser!</span>
+                    <span id="journal-save-msg" class="journal-save-msg">Entry Saved!</span>
                 </div>
 
                 <div class="controls">
@@ -356,7 +383,7 @@
         ];
 
         let currentChapterId = 1, currentVerseNum = 1; 
-        let currentVerseData = null; // Stores API response
+        let currentVerseData = null; 
         let astras = JSON.parse(localStorage.getItem('gita-astras')) || [];
         let currentAudio = null;
 
@@ -366,6 +393,11 @@
             document.querySelectorAll('.main-nav button').forEach(el => el.classList.remove('active'));
             document.getElementById(`view-${view}`).classList.add('active');
             document.getElementById(`nav-${view}`).classList.add('active');
+        }
+
+        // --- MOBILE SIDEBAR TOGGLE ---
+        function toggleSidebar() {
+            document.getElementById('chapter-list').classList.toggle('open');
         }
 
         // --- VIRTUAL GITA CORE ---
@@ -396,6 +428,11 @@
                 option.value = i; option.text = `श्लोक ${i}`; dropdown.appendChild(option);
             }
             fetchAndRenderVerse();
+
+            // Auto-close sidebar on mobile after selecting a chapter
+            if(window.innerWidth <= 950) {
+                document.getElementById('chapter-list').classList.remove('open');
+            }
         }
 
         async function fetchAndRenderVerse() {
@@ -417,7 +454,6 @@
                 else if (currentVerseData.tej && currentVerseData.tej.ht) hindiText = currentVerseData.tej.ht;
                 document.getElementById('shloka-hindi').innerHTML = hindiText;
 
-                // Prepare Deep Dive Info
                 document.getElementById('shloka-trans').innerText = currentVerseData.translit || "Not available";
                 let engText = currentVerseData.siva ? currentVerseData.siva.et : (currentVerseData.tej ? currentVerseData.tej.et : "Not available");
                 document.getElementById('shloka-eng').innerText = engText;
@@ -446,26 +482,19 @@
             fetchAndRenderVerse();
         }
 
-        // --- NEW FEATURES: Audio, Journal, Deep Dive, Astras ---
-        
+        // --- AUDIO, JOURNAL, ASTRAS ---
         function playAudio() {
             if(currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; }
-            
-            // Note: Replace this placeholder URL with an actual MP3 hosting server if you have one.
             const audioUrl = `https://your-server.com/audio/ch${currentChapterId}_v${currentVerseNum}.mp3`;
             currentAudio = new Audio(audioUrl);
-            
             currentAudio.play().catch(e => {
-                // FALLBACK: Use Text-to-Speech if MP3 fails
                 if ('speechSynthesis' in window) {
                     window.speechSynthesis.cancel(); 
                     let text = document.getElementById('shloka-sanskrit').innerText;
                     let utterance = new SpeechSynthesisUtterance(text);
                     utterance.lang = 'hi-IN'; utterance.rate = 0.8; 
                     window.speechSynthesis.speak(utterance);
-                } else {
-                    alert("Real audio not linked and browser does not support TTS.");
-                }
+                } else { alert("Browser does not support TTS."); }
             });
         }
 
@@ -483,13 +512,10 @@
             const text = document.getElementById('journal-input').value;
             localStorage.setItem(`gita-journal-${currentChapterId}-${currentVerseNum}`, text);
             const msg = document.getElementById('journal-save-msg');
-            msg.style.opacity = 1;
-            setTimeout(() => msg.style.opacity = 0, 2000);
+            msg.style.opacity = 1; setTimeout(() => msg.style.opacity = 0, 2000);
         }
 
-        function toggleAstras() {
-            document.getElementById('astras-panel').classList.toggle('open');
-        }
+        function toggleAstras() { document.getElementById('astras-panel').classList.toggle('open'); }
 
         function saveAstra() {
             const text = document.getElementById('shloka-hindi').innerText;
@@ -497,26 +523,19 @@
             if(!exists) {
                 astras.push({ ch: currentChapterId, v: currentVerseNum, text: text });
                 localStorage.setItem('gita-astras', JSON.stringify(astras));
-                renderAstras();
-                alert(`Chapter ${currentChapterId}, Verse ${currentVerseNum} added to your Armory!`);
-            } else {
-                alert("This Astra is already in your Armory.");
-            }
+                renderAstras(); alert(`Chapter ${currentChapterId}, Verse ${currentVerseNum} added to your Armory!`);
+            } else { alert("This Astra is already in your Armory."); }
         }
 
         function renderAstras() {
-            const list = document.getElementById('astras-list');
-            list.innerHTML = '';
-            astras.forEach((a, index) => {
-                const card = document.createElement('div');
-                card.className = 'astra-card';
+            const list = document.getElementById('astras-list'); list.innerHTML = '';
+            astras.forEach((a) => {
+                const card = document.createElement('div'); card.className = 'astra-card';
                 card.innerHTML = `<h4>Ch ${a.ch}, Verse ${a.v}</h4><p>${a.text}</p>`;
-                card.onclick = () => {
-                    loadChapter(a.ch); changeVerse(a.v); toggleAstras();
-                };
+                card.onclick = () => { loadChapter(a.ch); changeVerse(a.v); toggleAstras(); };
                 list.appendChild(card);
             });
-            if(astras.length === 0) list.innerHTML = "<p style='color:var(--text-muted);'>Your armory is empty. Save a verse to begin.</p>";
+            if(astras.length === 0) list.innerHTML = "<p style='color:var(--text-muted);'>Your armory is empty.</p>";
         }
 
         // --- PSYCHOLOGY TOOLS ---
